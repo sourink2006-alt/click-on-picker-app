@@ -1,0 +1,771 @@
+﻿=== STEP 0 ===
+<USER_REQUEST>
+IMPORTANT:
+Only work on the onboarding / login flow screens.
+Do NOT touch any other files, components, APIs, dashboards, picker flow, product flow, backend logic, routing outside onboarding, or existing business logic.
+This task is ONLY for recreating the onboarding UI flow shown in the reference.
+
+Framework:
+- React JS
+- Mobile-first UI
+- Screen reference size: iPhone X
+- Dark premium quick-commerce aesthetic
+- Pixel-perfect recreation of the provided onboarding flow
+- Replace every â€œDelivery Partnerâ€ wording with â€œPickerâ€ or â€œPicking Partnerâ€
+
+FLOW ORDER:
+1. Splash Screen
+2. Language Selection
+3. Login / Sign In
+4. OTP Verification
+5. City Selection
+6. Hub Selection
+7. Aadhaar Verification
+8. Selfie Verification
+
+OVERALL UI STYLE:
+The UI should feel exactly like a modern Blinkit / Zepto dark onboarding experience.
+
+BACKGROUND:
+- Full app uses a deep dark green-black gradient background
+- Main background shades:
+  - #03110D
+  - #071A14
+  - #0B221A
+- Very subtle radial green glow in top corners
+- Matte finish, not glossy
+- No bright backgrounds
+
+PRIMARY BRAND COLOR:
+Use the provided green as primary CTA color:
+- #2FE081
+
+SECONDARY COLORS:
+- Card background: rgba(20,30,25,0.85)
+- Border: rgba(80,255,170,0.15)
+- Input background: rgba(255,255,255,0.03)
+- Muted text: rgba(255,255,255,0.55)
+- Primary text: rgba(255,255,255,0.92)
+
+TYPOGRAPHY:
+Use a rounded modern font style similar to:
+- Baloo 2
+- Nunito
+- Quicksand
+
+Typography style:
+- Large rounded headings
+- Soft bold weight
+- Friendly but premium quick-commerce aesthetic
+
+Heading Style:
+- Large
+- Rounded
+- White
+- Slightly bold
+
+Subtext:
+- Small
+- Muted gray-green
+- Comfortable line spacing
+
+LAYOUT RULES:
+- Everything aligned with large safe-area padding
+- Horizontal padding: 20pxâ€“24px
+- Large vertical breathing space
+- Rounded cards everywhere
+- Very soft shadows only
+- No hard borders
+- Clean spacing hierarchy
+
+CARD DESIGN:
+All sections should use rounded dark cards:
+- Border radius: 24px
+- Semi-transparent dark surface
+- Soft green 
+<truncated 1336 bytes>
+rge selectable city card
+- Selected card uses green outline and radio indicator
+
+6. HUB SELECTION SCREEN
+- Same structure as city selection
+- Single large hub card
+- â€œRECOMMENDEDâ€ badge on top right
+- Hub distance and address shown smaller
+
+7. AADHAAR VERIFICATION SCREEN
+- Large dark verification card
+- Aadhaar number field
+- OTP field
+- â€œSend OTPâ€ text button
+- Consent checkbox
+- Security icon area
+- Small â€œSkip for nowâ€ text top-right
+- CTA button bottom
+
+8. SELFIE VERIFICATION GUIDE SCREEN
+- Instruction card with:
+  - Correct example row
+  - Incorrect example row
+- Green check icon
+- Red cross icon
+- Large â€œTake Selfieâ€ button
+
+9. LIVE SELFIE CAMERA SCREEN
+- Mostly dark screen
+- Large dashed oval face frame centered
+- Instruction text inside:
+  â€œAlign your face inside the frameâ€
+- Bottom fixed camera button
+- Minimal UI
+
+IMPORTANT DESIGN RULES:
+- Keep the UI extremely clean
+- No unnecessary icons
+- No heavy shadows
+- No bright white cards
+- No sharp corners
+- No clutter
+- Use smooth spacing rhythm everywhere
+- Maintain same dark premium onboarding aesthetic across all screens
+
+INTERACTIONS:
+- Smooth transitions
+- Soft fade animations
+- Slight scale effect on selection
+- Buttons have soft press feedback
+- Inputs glow subtly on focus
+
+FINAL REQUIREMENT:
+The onboarding flow should look almost identical to the provided references in:
+- layout
+- spacing
+- typography
+- color hierarchy
+- card structure
+- button placement
+- dark green quick-commerce aesthetic
+
+BUT:
+Replace all delivery-related wording with picker-related wording.
+This is a picker onboarding flow, not a delivery partner onboarding flow.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-26T23:35:46+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+=== STEP 55 ===
+<USER_REQUEST>
+Build a Blinkit/Zepto-style dark store picker app UI for warehouse pickers.
+
+IMPORTANT:
+This is NOT:
+- an admin dashboard
+- ERP software
+- warehouse management panel
+- inventory management system
+- desktop enterprise software
+
+This is a REAL-TIME MOBILE PICKER APP used by warehouse runners inside a dark store.
+
+Framework:
+- React JS frontend only
+- Mobile-first
+- iPhone X screen size reference
+- Framer Motion animations
+- Gesture-based interactions
+- One-hand operation optimized
+
+DO NOT TOUCH:
+- backend
+- APIs
+- databases
+- admin dashboard
+- analytics
+- reports
+- existing non-picker screens
+
+Only work on:
+- picker onboarding flow
+- order receiving flow
+- product picking workflow
+- barcode scanning experience
+- picker order UI
+
+====================================================
+OVERALL DESIGN LANGUAGE
+====================================================
+
+The entire app must visually match the onboarding/login UI aesthetic.
+
+UI STYLE:
+- premium dark quick-commerce UI
+- matte dark green-black theme
+- modern glassmorphism
+- layered translucent cards
+- subtle neon green accents
+- ultra clean spacing
+- minimal clutter
+- smooth depth layering
+
+BACKGROUND:
+Use deep dark gradients:
+- #03110D
+- #071A14
+- #0B221A
+
+Add:
+- subtle green radial glow
+- soft vignette
+- matte finish
+- no bright backgrounds
+
+PRIMARY BRAND COLOR:
+- #2FE081
+
+SECONDARY COLORS:
+- orange accent for urgency/order timing
+- soft purple for carousel indicators
+- muted gray-green for inactive UI
+
+CARD STYLE:
+- semi-transparent dark cards
+- backdrop blur
+- soft green border glow
+- 22pxâ€“28px border radius
+- layered depth effect
+
+TYPOGRAPHY:
+Use rounded modern typography similar to:
+- Nunito
+- Baloo 2
+- Quicksand
+
+STYLE:
+- rounded headings
+- soft bold weight
+- highly readable
+- fast scanning optimized
+
+SPACING:
+- large breathing room
+- clean hierarchy
+- oversized touch targets
+- thumb-friendly bottom interactions
+
+====================================================
+VERY IMPORTANT WORKFLOW CHANGE
+==============================================
+<truncated 3399 bytes>
+o transition under 1 second
+
+ERROR STATE:
+- full screen red overlay
+- shake animation
+- bold warning text
+- heavy vibration feel
+
+====================================================
+PROGRESS EXPERIENCE
+====================================================
+
+TOP HEADER:
+Show:
+- order ID
+- total items
+- picked count
+- timer
+- route progress
+
+Progress indicator:
+- animated segmented progress
+- smooth transitions
+- route-aware navigation
+
+====================================================
+UX REQUIREMENTS
+====================================================
+
+The app must feel:
+- extremely fast
+- tactile
+- swipe-driven
+- optimized for warehouse runners
+- game-like
+- addictive to use
+- built for speed + accuracy
+
+Picker should complete actions in:
+UNDER 1 SECOND
+
+Everything must support:
+- one-hand operation
+- rapid scanning
+- minimal thinking
+- fast movement inside warehouse
+
+====================================================
+ANIMATIONS
+====================================================
+
+Use Framer Motion for:
+- card snapping
+- swipe gestures
+- scale transitions
+- success flash
+- shake errors
+- layered depth movement
+- smooth spring physics
+
+Animation feel:
+- premium
+- responsive
+- fluid
+- tactile
+
+====================================================
+FINAL REQUIREMENT
+====================================================
+
+The entire picker workflow UI should feel like:
+â€œBlinkit internal dark-store picker app with Apple-level interaction quality.â€
+
+The onboarding/login screens and order picking flow must feel part of the SAME design system.
+
+Maintain:
+- same color palette
+- same spacing rhythm
+- same typography
+- same glassmorphism style
+- same rounded visual language
+
+But replace all delivery-related wording with:
+- Picker
+- Picking
+- Dark Store Picker
+- Warehouse Picker
+
+The final experience should feel:
+fast, premium, operational, swipe-based, barcode-driven, and built for real warehouse runners.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-27T00:08:19+05:30.
+</ADDITIONAL_METADATA>
+=== STEP 87 ===
+<USER_REQUEST>
+Continue
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-27T00:11:54+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.1 Pro (High) to Gemini 3.5 Flash (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+=== STEP 227 ===
+<USER_REQUEST>
+Move the online/offline state out of the Orders screen component.
+
+Store:
+- isOnline
+
+inside a global Zustand store (or persisted global state).
+
+The Orders screen should ONLY read:
+- isOnline
+
+from the global store.
+
+DO NOT:
+- use local component state for online status
+- reset online state on screen mount
+- initialize offline state inside Orders page
+
+Current issue:
+When navigating away and back, Orders screen remounts and loses state.
+
+Required behavior:
+- if picker went online once
+- app should remember it across navigation
+- returning to Orders should still show ONLINE state
+- â€œGo Onlineâ€ button should behave consistently
+
+Frontend only.
+No backend needed.
+Use Zustand/global state/localStorage persistence only.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-27T00:27:21+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.5 Flash (Medium) to Gemini 3.5 Flash (Low). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+=== STEP 237 ===
+<USER_REQUEST>
+You are a quick-commerce picker workflow analyst specializing in Blinkit, Zepto Packman, Instamart, and dark-store picker operations.
+
+Your ONLY task is to analyze the FRONTEND picker app experience and operational picker workflow.
+
+You are NOT:
+- building anything
+- coding anything
+- redesigning anything
+- generating React components
+- generating backend systems
+
+You are ONLY auditing:
+- picker workflows
+- picker UI behavior
+- picker operational realism
+- picking interactions
+- scanning flow
+- picker usability
+- dark-store execution flow
+
+====================================================
+IMPORTANT
+====================================================
+
+This is NOT:
+- a consumer ecommerce app
+- admin dashboard
+- inventory software
+- ERP panel
+
+This is a:
+REAL-TIME DARK STORE PICKER APP
+
+used by:
+- warehouse runners
+- store associates
+- batch pickers
+- dark-store operators
+
+under:
+- SLA pressure
+- time pressure
+- repetitive workflows
+- rapid scanning operations
+
+====================================================
+PRIMARY OBJECTIVE
+====================================================
+
+Analyze the provided picker app workflow and UI references.
+
+Your report must identify:
+
+1. Which picker flows feel operationally realistic
+2. Which picker flows feel fake/demo-like
+3. Which picker UI patterns resemble real Blinkit/Zepto operations
+4. Which picker interactions are missing
+5. Which workflows slow down the picker
+6. Which UI patterns improve picking speed
+7. Which operational UX patterns are accurate
+8. Which picker features are missing
+9. Which scan workflows are realistic
+10. Which picker interactions reduce errors
+
+====================================================
+ANALYSIS SECTIONS
+====================================================
+
+----------------------------------------------------
+1. PICKER WORKFLOW ANALYSIS
+----------------------------------------------------
+
+Audit:
+- shift start flow
+- waiting/home flow
+- batch assignment flow
+- route flow
+- picking flow
+- scan flow
+- cart/crate flow
+- ha
+<truncated 3171 bytes>
+scan history
+- route preview
+- congestion alerts
+- damaged-item flow
+- low-stock warnings
+- idle alerts
+- batch priority indicators
+- SLA urgency indicators
+- picker training mode
+- multi-language operational shortcuts
+- picker accessibility features
+- fast-scan mode
+- rugged-device optimizations
+
+ONLY include realistic picker-side operational features.
+
+----------------------------------------------------
+9. PICKER STATE FLOW ANALYSIS
+----------------------------------------------------
+
+Audit:
+- picker states
+- active/inactive states
+- break handling
+- batch transitions
+- reassignment behavior
+- cancellation handling
+- offline picker behavior
+
+Find:
+- broken picker states
+- missing transitions
+- operational edge-case gaps
+
+----------------------------------------------------
+10. FINAL PICKER APP VERDICT
+----------------------------------------------------
+
+Provide:
+
+- Picker Workflow Realism Score
+- Operational UX Score
+- Scan Workflow Score
+- Batch Picking Efficiency Score
+- Dark Store Realism Score
+- Picker Speed Optimization Score
+
+Then summarize:
+- strongest picker workflows
+- weakest picker workflows
+- most realistic operational behaviors
+- biggest picker UX gaps
+- biggest workflow bottlenecks
+- missing operational picker features
+
+====================================================
+IMPORTANT OUTPUT RULES
+====================================================
+
+DO NOT:
+- generate code
+- redesign UI
+- generate backend architecture
+- create APIs
+- rewrite workflows
+
+ONLY:
+- analyze
+- audit
+- critique
+- infer
+- report findings
+
+====================================================
+FINAL OUTPUT
+====================================================
+
+Return:
+- a structured picker app operational audit report
+- picker workflow findings
+- picker UI analysis
+- operational UX analysis
+- scanning flow analysis
+- batch picking analysis
+- missing picker feature analysis
+- realism verdict
+
+ONLY REPORT FINDINGS.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-27T00:40:43+05:30.
+</ADDITIONAL_METADATA>
+=== STEP 239 ===
+<USER_REQUEST>
+You are building a REAL-TIME DARK STORE PICKER APPLICATION inspired by Blinkit internal picker systems, Zepto Packman workflows, and Instamart warehouse execution tools.
+
+IMPORTANT:
+This is NOT:
+
+* an ecommerce app
+* a delivery app
+* an admin dashboard
+* ERP software
+* inventory management software
+* a consumer marketplace UI
+
+This is an INTERNAL WAREHOUSE PICKER EXECUTION SYSTEM used by dark-store warehouse runners under SLA pressure.
+
+====================================================
+FOUNDATION RULE (CRITICAL)
+==========================
+
+This project has a PERMANENT CORE FOUNDATION.
+
+Nothing from the existing system can be:
+
+* removed
+* replaced
+* broken
+* downgraded
+* restructured
+* overridden
+
+ALL existing:
+
+* workflows
+* onboarding logic
+* picker flow
+* scanning logic
+* UX hierarchy
+* operational behavior
+* navigation structure
+* persistence logic
+* interaction patterns
+* UI structure
+* picker states
+
+must remain fully preserved.
+
+New features must ONLY:
+
+* add on top
+* extend
+* enhance
+* refine
+* improve operational realism
+* improve picker speed
+* improve warehouse usability
+
+WITHOUT modifying core workflows.
+
+If a new feature conflicts with an existing workflow:
+DO NOT modify the original workflow.
+SKIP the conflicting enhancement entirely.
+
+The existing system ALWAYS wins.
+
+====================================================
+APPLICATION TYPE
+================
+
+The app must feel like:
+
+* Blinkit dark-store picker system
+* Zepto Packman
+* warehouse runner execution software
+* operational workforce tooling
+
+NOT:
+
+* prototype UI
+* concept app
+* ecommerce interface
+* dashboard-heavy enterprise software
+
+====================================================
+ONBOARDING FLOW (MUST REMAIN EXACT)
+===================================
+
+Preserve EXACT onboarding sequence:
+
+1. Splash Screen
+2. Language Selection
+3. Login
+4. OTP Verification
+5. City Selection
+6. Hub Selection
+7. Aadhaar Verification
+8. Selfie V
+<truncated 8300 bytes>
+ closes:
+
+* restore current item
+* restore batch progress
+* restore route state
+* reopen active picking session
+
+====================================================
+ANIMATION RULES
+===============
+
+Use Framer Motion.
+
+Animations should feel:
+
+* responsive
+* tactile
+* operational
+* fast
+
+REMOVE:
+
+* cinematic animations
+* slow transitions
+* over-designed motion
+* flashy celebration screens
+
+Warehouse speed matters more than visual polish.
+
+====================================================
+REMOVE CONSUMER APP FEEL
+========================
+
+DO NOT make the app feel like:
+
+* shopping app
+* marketplace UI
+* delivery app
+* social app
+
+Reduce:
+
+* excessive glass blur
+* over-gamification
+* decorative animations
+* ecommerce aesthetics
+
+The UI should feel:
+
+* operational
+* focused
+* functional
+* warehouse-grade
+
+====================================================
+ONE-HAND OPERATION RULE
+=======================
+
+Everything must support:
+
+* thumb reach
+* rapid movement
+* repetitive use
+* low-thinking execution
+* picker fatigue reduction
+
+Large touch targets required.
+
+====================================================
+FINAL EXPERIENCE TARGET
+=======================
+
+The final product should feel like:
+
+â€œA realistic internal Blinkit/Zepto dark-store picker execution system with barcode-enforced workflows, swipe-driven picking, operational warehouse UX, and Apple-level interaction quality.â€
+
+The app must feel:
+
+* real
+* operational
+* fast
+* tactile
+* warehouse-native
+* scan-first
+* picker-optimized
+* execution-focused
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-27T01:17:32+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.5 Flash (Low) to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

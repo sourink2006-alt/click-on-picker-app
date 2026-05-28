@@ -1,0 +1,175 @@
+<USER_REQUEST>
+You are a quick-commerce picker workflow analyst specializing in Blinkit, Zepto Packman, Instamart, and dark-store picker operations.
+
+Your ONLY task is to analyze the FRONTEND picker app experience and operational picker workflow.
+
+You are NOT:
+- building anything
+- coding anything
+- redesigning anything
+- generating React components
+- generating backend systems
+
+You are ONLY auditing:
+- picker workflows
+- picker UI behavior
+- picker operational realism
+- picking interactions
+- scanning flow
+- picker usability
+- dark-store execution flow
+
+====================================================
+IMPORTANT
+====================================================
+
+This is NOT:
+- a consumer ecommerce app
+- admin dashboard
+- inventory software
+- ERP panel
+
+This is a:
+REAL-TIME DARK STORE PICKER APP
+
+used by:
+- warehouse runners
+- store associates
+- batch pickers
+- dark-store operators
+
+under:
+- SLA pressure
+- time pressure
+- repetitive workflows
+- rapid scanning operations
+
+====================================================
+PRIMARY OBJECTIVE
+====================================================
+
+Analyze the provided picker app workflow and UI references.
+
+Your report must identify:
+
+1. Which picker flows feel operationally realistic
+2. Which picker flows feel fake/demo-like
+3. Which picker UI patterns resemble real Blinkit/Zepto operations
+4. Which picker interactions are missing
+5. Which workflows slow down the picker
+6. Which UI patterns improve picking speed
+7. Which operational UX patterns are accurate
+8. Which picker features are missing
+9. Which scan workflows are realistic
+10. Which picker interactions reduce errors
+
+====================================================
+ANALYSIS SECTIONS
+====================================================
+
+----------------------------------------------------
+1. PICKER WORKFLOW ANALYSIS
+----------------------------------------------------
+
+Audit:
+- shift start flow
+- waiting/home flow
+- batch assignment flow
+- route flow
+- picking flow
+- scan flow
+- cart/crate flow
+- ha
+<truncated 3171 bytes>
+scan history
+- route preview
+- congestion alerts
+- damaged-item flow
+- low-stock warnings
+- idle alerts
+- batch priority indicators
+- SLA urgency indicators
+- picker training mode
+- multi-language operational shortcuts
+- picker accessibility features
+- fast-scan mode
+- rugged-device optimizations
+
+ONLY include realistic picker-side operational features.
+
+----------------------------------------------------
+9. PICKER STATE FLOW ANALYSIS
+----------------------------------------------------
+
+Audit:
+- picker states
+- active/inactive states
+- break handling
+- batch transitions
+- reassignment behavior
+- cancellation handling
+- offline picker behavior
+
+Find:
+- broken picker states
+- missing transitions
+- operational edge-case gaps
+
+----------------------------------------------------
+10. FINAL PICKER APP VERDICT
+----------------------------------------------------
+
+Provide:
+
+- Picker Workflow Realism Score
+- Operational UX Score
+- Scan Workflow Score
+- Batch Picking Efficiency Score
+- Dark Store Realism Score
+- Picker Speed Optimization Score
+
+Then summarize:
+- strongest picker workflows
+- weakest picker workflows
+- most realistic operational behaviors
+- biggest picker UX gaps
+- biggest workflow bottlenecks
+- missing operational picker features
+
+====================================================
+IMPORTANT OUTPUT RULES
+====================================================
+
+DO NOT:
+- generate code
+- redesign UI
+- generate backend architecture
+- create APIs
+- rewrite workflows
+
+ONLY:
+- analyze
+- audit
+- critique
+- infer
+- report findings
+
+====================================================
+FINAL OUTPUT
+====================================================
+
+Return:
+- a structured picker app operational audit report
+- picker workflow findings
+- picker UI analysis
+- operational UX analysis
+- scanning flow analysis
+- batch picking analysis
+- missing picker feature analysis
+- realism verdict
+
+ONLY REPORT FINDINGS.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-27T00:40:43+05:30.
+</ADDITIONAL_METADATA>

@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #7B2FF7;
+  --color-primary-dark: #6422CC;
+  --color-accent: #FFD60A;
+  --color-success: #1EA952;
+  --color-success-bg: #E8F5E9;
+  --color-warning: #E65100;
+  --color-warning-bg: #FFF3E0;
+  --color-danger: #D32F2F;
+  --color-danger-bg: #FFEBEE;
+  --color-info: #1565C0;
+  --color-bg: #F5F5F5;
+  --color-card: #FFFFFF;
+  --color-text: #212121;
+  --color-text-sec: #616161;
+  --color-text-hint: #9E9E9E;
+  --color-border: #E0E0E0;
+  --color-divider: #EEEEEE;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    background: #E0E0E0;
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overscroll-behavior: none;
+  }
+
+  input, button, textarea { font-family: inherit; outline: none; }
+  button { cursor: pointer; border: none; background: none; }
+}
+
+@layer components {
+  .app-shell {
+    max-width: 430px;
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+
+  .screen {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+  .screen-padded { padding-bottom: 64px; }
+
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: background 0.1s;
+  }
+  .btn-primary:active { background: var(--color-primary-dark); }
+  .btn-primary:disabled { opacity: 0.35; pointer-events: none; }
+
+  .btn-success {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-success);
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .btn-success:active { filter: brightness(0.92); }
+  .btn-success:disabled { opacity: 0.35; pointer-events: none; }
+
+  .card {
+    background: var(--color-card);
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+  }
+
+  .bottom-nav {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(11, 34, 26, 0.9);
+    border-top: 1px solid rgba(80, 255, 170, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    z-index: 100;
+  }
+
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 16px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.45);
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  .bottom-nav-item.active { color: #2FE081; }
+  .bottom-nav-item.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 20px; height: 3px;
+    border-radius: 0 0 2px 2px;
+    background: #2FE081;
+    box-shadow: 0 0 8px #2FE081;
+  }
+
+  .badge-dot {
+    position: absolute;
+    top: 2px; right: 10px;
+    width: 7px; height: 7px;
+    background: var(--color-danger);
+    border-radius: 50%;
+    border: 1.5px solid white;
+  }
+
+  .rack-label {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  .rack-a { background: #EDE7F6; color: #6A1FC2; }
+  .rack-b { background: #E3F2FD; color: #1565C0; }
+  .rack-c { background: #FFF8E1; color: #E65100; }
+  .rack-d { background: #E8F5E9; color: #2E7D32; }
+  .rack-e { background: #FCE4EC; color: #C62828; }
+  .rack-f { background: #FBE9E7; color: #BF360C; }
+
+  .qty-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    background: var(--color-accent);
+    color: #212121;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+  }
+
+  @keyframes urgency-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  @keyframes error-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  @keyframes scan-sweep {
+    0% { top: 8%; }
+    100% { top: 88%; }
+  }
+}
