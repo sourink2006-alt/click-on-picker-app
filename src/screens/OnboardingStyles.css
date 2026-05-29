@@ -62,7 +62,22 @@ input[type="date"].onboarding-input {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
+  text-align: left !important;
   line-height: normal !important;
+}
+
+input[type="date"].onboarding-input::-webkit-calendar-picker-indicator {
+  margin-left: auto !important;
+  order: 2 !important;
+  cursor: pointer;
+}
+
+input[type="date"].onboarding-input::-webkit-date-and-time-value {
+  text-align: left !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 !important;
 }
 
 .onboarding-input:focus {

@@ -60,7 +60,7 @@ export default function LoginScreen() {
               type="date" 
               value={dob}
               onChange={(e) => setDob(e.target.value)}
-              className={`onboarding-input w-full px-4 py-4 text-[16px] font-semibold flex-row-reverse ${!dob ? 'text-[rgba(255,255,255,0.3)]' : 'text-white'}`}
+              className={`onboarding-input w-full px-4 py-4 text-[16px] font-semibold ${!dob ? 'text-[rgba(255,255,255,0.3)]' : 'text-white'}`}
               style={{ colorScheme: 'dark' }}
             />
           </div>

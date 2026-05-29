@@ -349,7 +349,7 @@ export default function ProfileScreen() {
                     type="date" 
                     value={tempDob}
                     onChange={(e) => setTempDob(e.target.value)}
-                    className="onboarding-input w-full px-4 py-3.5 text-[15px] font-semibold flex-row-reverse"
+                    className="onboarding-input w-full px-4 py-3.5 text-[15px] font-semibold"
                     style={{ colorScheme: 'dark' }}
                   />
                 </div>
