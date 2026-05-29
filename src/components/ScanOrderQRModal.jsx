@@ -52,7 +52,11 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
           },
           () => {} // ignore scan failures
         );
-        if (mounted) setStatus('scanning');
+        if (!mounted) {
+          html5QrCode.stop().catch(() => {});
+          return;
+        }
+        setStatus('scanning');
       } catch (err) {
         console.error('QR Scanner init error:', err);
         if (mounted) {

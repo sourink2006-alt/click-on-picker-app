@@ -19,7 +19,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="onboarding-flow px-6 py-12 flex flex-col">
+    <div className="onboarding-flow px-6 py-safe flex flex-col">
       <div className="flex-1 flex flex-col justify-start mt-4">
         <h1 className="onboarding-heading">Join as a<br/><span className="text-[#2FE081]">Picker Partner</span></h1>
         <p className="onboarding-subtext mb-10">Start your journey with us today.</p>

@@ -17,7 +17,7 @@ export default function CityScreen() {
   const filteredCities = CITIES.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="onboarding-flow px-6 py-12 flex flex-col">
+    <div className="onboarding-flow px-6 py-safe flex flex-col">
       <div className="flex-1 flex flex-col">
         <h1 className="onboarding-heading mb-2">Select Work City</h1>
         <p className="onboarding-subtext mb-8">Where do you want to work?</p>

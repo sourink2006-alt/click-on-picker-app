@@ -52,7 +52,7 @@ export default function OrdersScreen() {
 
   return (
     <div className="screen screen-padded onboarding-flow flex flex-col pb-20">
-      <div className="px-6 mt-6 flex flex-col gap-4 overflow-y-auto flex-1 items-center">
+      <div className="px-6 mt-6 flex flex-col gap-4 overflow-y-auto flex-1 items-center scrollbar-none w-full max-w-3xl mx-auto">
         <OfflineGuard>
           {/* Online View Content */}
           <div className="w-full flex flex-col gap-6 items-center flex-1 py-4 justify-start">
@@ -63,7 +63,7 @@ export default function OrdersScreen() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setShowQRScanner(true)}
-                className="w-full max-w-[340px] relative overflow-hidden py-5 bg-gradient-to-r from-[#2FE081] to-[#25b869] rounded-2xl text-[#03110D] font-black text-[16px] tracking-wide uppercase flex items-center justify-center gap-2.5 shadow-[0_0_32px_rgba(47,224,129,0.25)] border border-[#50FFAA]/30"
+                className="w-full max-w-md relative overflow-hidden py-5 bg-gradient-to-r from-[#2FE081] to-[#25b869] rounded-2xl text-[#03110D] font-black text-[16px] tracking-wide uppercase flex items-center justify-center gap-2.5 shadow-[0_0_32px_rgba(47,224,129,0.25)] border border-[#50FFAA]/30"
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#03110D" strokeWidth="2.5">
                   <path d="M3 7V5a2 2 0 0 1 2-2h2" />
@@ -78,7 +78,7 @@ export default function OrdersScreen() {
             </div>
             
             {/* PREVIOUS ORDERS */}
-            <div className="flex flex-col gap-3.5 w-full max-w-[340px] text-left mt-6 shrink-0 pb-6">
+            <div className="flex flex-col gap-3.5 w-full max-w-md text-left mt-6 shrink-0 pb-6">
               <p className="text-[11px] font-black text-[#2FE081] uppercase tracking-wider mb-1">
                 Previous Orders ({completedOrders.length})
               </p>

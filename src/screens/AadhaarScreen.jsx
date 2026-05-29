@@ -16,7 +16,7 @@ export default function AadhaarScreen() {
   const isFormValid = otpSent && otp.length === 6 && consent;
 
   return (
-    <div className="onboarding-flow px-6 py-12 flex flex-col">
+    <div className="onboarding-flow px-6 py-safe flex flex-col">
       <div className="flex justify-between items-center mb-8">
         <div className="w-12 h-12 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] flex items-center justify-center" onClick={() => navigate(-1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -24,7 +24,13 @@ export default function AadhaarScreen() {
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </div>
-        <button onClick={() => navigate('/selfie-guide')} className="text-[14px] font-bold text-[rgba(255,255,255,0.5)] pr-2">
+        <button 
+          onClick={() => {
+            localStorage.setItem('picker_kyc_current_step', 'pan');
+            navigate('/pan-verification');
+          }} 
+          className="text-[14px] font-bold text-[rgba(255,255,255,0.5)] pr-2"
+        >
           Skip for now
         </button>
       </div>
@@ -110,7 +116,10 @@ export default function AadhaarScreen() {
         <button 
           className="onboarding-btn" 
           disabled={!isFormValid}
-          onClick={() => navigate('/selfie-guide')}
+          onClick={() => {
+            localStorage.setItem('picker_kyc_current_step', 'pan');
+            navigate('/pan-verification');
+          }}
         >
           Verify Aadhaar
         </button>

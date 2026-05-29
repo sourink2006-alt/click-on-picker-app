@@ -53,12 +53,35 @@
 
 @layer components {
   .app-shell {
-    max-width: 430px;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
     height: 100%;
     position: relative;
     overflow: hidden;
     background: var(--color-bg);
+    transition: max-width 0.2s ease;
+  }
+
+  @media (min-width: 480px) {
+    .app-shell {
+      max-width: 480px;
+      border-left: 1px solid rgba(80, 255, 170, 0.1);
+      border-right: 1px solid rgba(80, 255, 170, 0.1);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .app-shell {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .app-shell {
+      max-width: 1024px;
+    }
   }
 
   .screen {
@@ -69,7 +92,18 @@
     overscroll-behavior: contain;
   }
   .screen::-webkit-scrollbar { display: none; }
-  .screen-padded { padding-bottom: 64px; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+  .screen-padded { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+
+  .py-safe {
+    padding-top: calc(2.5rem + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .safe-pt {
+    padding-top: calc(1.5rem + env(safe-area-inset-top, 0px)) !important;
+  }
 
   .btn-primary {
     width: 100%;
@@ -113,8 +147,22 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 60px;
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     z-index: 100;
+    transition: all 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .bottom-nav {
+      max-width: 600px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      border-radius: 20px 20px 0 0;
+      border-left: 1px solid rgba(80, 255, 170, 0.15);
+      border-right: 1px solid rgba(80, 255, 170, 0.15);
+    }
   }
 
   .bottom-nav-item {

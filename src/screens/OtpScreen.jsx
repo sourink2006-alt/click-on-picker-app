@@ -35,11 +35,11 @@ export default function OtpScreen() {
   const isFormValid = otp.every(d => d !== '');
 
   const handleVerify = () => {
-    if (isFormValid) navigate('/city');
+    if (isFormValid) navigate('/permissions');
   };
 
   return (
-    <div className="onboarding-flow px-6 py-12 flex flex-col">
+    <div className="onboarding-flow px-6 py-safe flex flex-col">
       <div className="flex-1">
         <div className="w-12 h-12 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] flex items-center justify-center mb-6" onClick={() => navigate(-1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -64,7 +64,7 @@ export default function OtpScreen() {
                 value={digit} 
                 onChange={(e) => handleOtpChange(i, e.target.value.replace(/\D/g, ''))} 
                 onKeyDown={(e) => handleOtpKeyDown(i, e)} 
-                className="w-12 h-14 text-center text-[22px] font-bold bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-xl text-white focus:border-[#2FE081] focus:bg-[rgba(47,224,129,0.05)] outline-none transition-all" 
+                className="flex-1 max-w-[48px] aspect-[12/14] py-3 text-center text-[22px] font-bold bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-xl text-white focus:border-[#2FE081] focus:bg-[rgba(47,224,129,0.05)] outline-none transition-all" 
               />
             ))}
           </div>

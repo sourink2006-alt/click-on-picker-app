@@ -12,6 +12,11 @@ import HubScreen from './screens/HubScreen';
 import AadhaarScreen from './screens/AadhaarScreen';
 import SelfieGuideScreen from './screens/SelfieGuideScreen';
 import LiveSelfieScreen from './screens/LiveSelfieScreen';
+import PermissionsScreen from './screens/PermissionsScreen';
+import PANVerificationScreen from './screens/PANVerificationScreen';
+import PersonalDetailsVerifiedScreen from './screens/PersonalDetailsVerifiedScreen';
+import BankAccountDetailsScreen from './screens/BankAccountDetailsScreen';
+import BankVerificationSubmittedScreen from './screens/BankVerificationSubmittedScreen';
 import HomeScreen from './screens/HomeScreen';
 import OrdersScreen from './screens/OrdersScreen';
 import PickingScreen from './screens/PickingScreen';
@@ -34,10 +39,11 @@ function AppRoutes() {
 
   const mainPaths = ['/home', '/orders', '/earnings', '/notifications', '/profile'];
   const showNav = isAuthenticated && mainPaths.includes(location.pathname) && !pickingLocked;
+  const showHeader = showNav && location.pathname !== '/profile';
 
   return (
     <div className="app-shell bg-[#03110D]">
-      {showNav && <GlobalHeader />}
+      {showHeader && <GlobalHeader />}
       
       <Routes location={location}>
         {/* Unauthenticated routes: Redirect authenticated users to /home */}
@@ -45,9 +51,14 @@ function AppRoutes() {
         <Route path="/language" element={isAuthenticated ? <Navigate to="/home" replace /> : <LanguageScreen />} />
         <Route path="/login" element={isAuthenticated ? <Navigate to="/home" replace /> : <LoginScreen />} />
         <Route path="/otp" element={isAuthenticated ? <Navigate to="/home" replace /> : <OtpScreen />} />
+        <Route path="/permissions" element={isAuthenticated ? <Navigate to="/home" replace /> : <PermissionsScreen />} />
         <Route path="/city" element={isAuthenticated ? <Navigate to="/home" replace /> : <CityScreen />} />
         <Route path="/hub" element={isAuthenticated ? <Navigate to="/home" replace /> : <HubScreen />} />
         <Route path="/aadhaar" element={isAuthenticated ? <Navigate to="/home" replace /> : <AadhaarScreen />} />
+        <Route path="/pan-verification" element={isAuthenticated ? <Navigate to="/home" replace /> : <PANVerificationScreen />} />
+        <Route path="/personal-details-verified" element={isAuthenticated ? <Navigate to="/home" replace /> : <PersonalDetailsVerifiedScreen />} />
+        <Route path="/bank-details" element={isAuthenticated ? <Navigate to="/home" replace /> : <BankAccountDetailsScreen />} />
+        <Route path="/bank-submitted" element={isAuthenticated ? <Navigate to="/home" replace /> : <BankVerificationSubmittedScreen />} />
         <Route path="/selfie-guide" element={isAuthenticated ? <Navigate to="/home" replace /> : <SelfieGuideScreen />} />
         <Route path="/live-selfie" element={isAuthenticated ? <Navigate to="/home" replace /> : <LiveSelfieScreen />} />
 

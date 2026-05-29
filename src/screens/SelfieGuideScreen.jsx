@@ -5,7 +5,7 @@ export default function SelfieGuideScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className="onboarding-flow px-6 py-12 flex flex-col">
+    <div className="onboarding-flow px-6 py-safe flex flex-col">
       <div className="w-12 h-12 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] flex items-center justify-center mb-6" onClick={() => navigate(-1)}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>

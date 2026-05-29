@@ -48,7 +48,7 @@ export default function NotificationsScreen() {
       </div>
 
       {/* Content */}
-      <div className="px-6 mt-6 space-y-3 overflow-y-auto flex-1 pb-4">
+      <div className="px-6 mt-6 space-y-3 overflow-y-auto flex-1 pb-24 scrollbar-none">
         {notifications.map(n => (
           <button
             key={n.id}

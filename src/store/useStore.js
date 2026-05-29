@@ -136,15 +136,11 @@ const useStore = create(
 
   // ======== Online/Offline ========
   toggleOnline: () => {
-    const { isOnline, isVerified } = get();
+    const { isOnline } = get();
     if (!isOnline) {
-      if (!isVerified) {
-        set({ faceScanActive: true, faceScanStep: 'guidance' });
-      } else {
-        set({ isOnline: true });
-      }
+      set({ faceScanActive: true, faceScanStep: 'guidance', isVerified: false });
     } else {
-      set({ isOnline: false });
+      set({ isOnline: false, isVerified: false });
     }
   },
 

@@ -7,7 +7,7 @@ export default function GlobalHeader() {
   const t = useStore(state => state.t);
 
   return (
-    <div className="px-6 pt-6 pb-4 border-b border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0 bg-[#03110D]/95 backdrop-blur-md sticky top-0 z-[100] w-full">
+    <div className="px-6 pt-[calc(1.5rem+env(safe-area-inset-top,0px))] pb-4 border-b border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0 bg-[#03110D]/95 backdrop-blur-md sticky top-0 z-[100] w-full">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-[#2FE081]/15 border border-[#2FE081]/25 flex items-center justify-center font-extrabold text-[#2FE081]">
           {picker.name.charAt(0)}

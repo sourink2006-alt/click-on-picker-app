@@ -18,7 +18,7 @@ export default function EarningsScreen() {
       </div>
 
       {/* Content */}
-      <div className="px-6 mt-6 space-y-4 overflow-y-auto flex-1 pb-4">
+      <div className="px-6 mt-6 space-y-4 overflow-y-auto flex-1 pb-24 scrollbar-none">
         {sections.map(({ key, label, data, accuracy }) => (
           <div key={key} className="flex flex-col">
             <p className="text-[10px] font-bold text-[#2FE081] uppercase tracking-wider mb-2">{label}</p>

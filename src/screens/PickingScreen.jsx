@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../store/useStore';
-import BarcodeScanner from '../components/BarcodeScanner';
 import './OnboardingStyles.css';
 
 // ------------------------------------------------------------------
@@ -113,7 +112,7 @@ function ProgressSection({ pickedCount, total, progress, timerCritical, timerUrg
 // ------------------------------------------------------------------
 // 3. PRODUCT CAROUSEL
 // ------------------------------------------------------------------
-function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrder, setShowExceptionModal, allPicked, currentItem, coldBagRequired, coldBagScanned, setShowColdBagScanner, t }) {
+function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrder, setShowExceptionModal, allPicked, currentItem, coldBagRequired, coldBagScanned, setShowColdBagScanner, scanColdBag, t }) {
   const handleDragEnd = (event, info) => {
     const threshold = 60;
     if (info.offset.x < -threshold && activeIndex < total - 1) {
@@ -147,11 +146,9 @@ function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrd
                   x: offset * 40,
                   scale: isActive ? 1 : 0.9 - Math.abs(offset) * 0.05,
                   opacity: isActive ? 1 : 0.45 - Math.abs(offset) * 0.15,
-                  filter: isActive ? 'blur(0px)' : 'blur(2px)',
-                  rotateY: offset * 8,
                   rotate: isActive ? 0 : offset * 2,
                 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 26 }}
                 className={`absolute w-full h-full onboarding-card p-5 flex flex-col justify-between ${
                   isActive 
                     ? 'shadow-[0_0_24px_rgba(47,224,129,0.15)] border-[#2FE081]/30 touch-pan-x' 
@@ -255,10 +252,10 @@ function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrd
             Verify cold storage bag to finalize picking for frozen items.
           </p>
           <button 
-            onClick={() => setShowColdBagScanner(true)} 
+            onClick={scanColdBag} 
             className="onboarding-btn shadow-[0_0_16px_rgba(47,224,129,0.15)]"
           >
-            Scan Cold Bag
+            Verify Cold Bag
           </button>
         </div>
       ) : (
@@ -278,7 +275,7 @@ function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrd
 // ------------------------------------------------------------------
 // 4. BOTTOM ACTIONS
 // ------------------------------------------------------------------
-function BottomActions({ allPicked, currentItem, activeIndex, goToItem, total, setShowScanner, t }) {
+function BottomActions({ allPicked, currentItem, activeIndex, goToItem, total, onPick, t }) {
   return (
     <div className="px-6 pb-8 pt-2 shrink-0 z-20 flex flex-col gap-3">
       <div className="flex gap-3">
@@ -296,17 +293,13 @@ function BottomActions({ allPicked, currentItem, activeIndex, goToItem, total, s
             
             {!currentItem.picked && !currentItem.hasException ? (
               <button 
-                onClick={() => setShowScanner(true)} 
+                onClick={onPick} 
                 className="flex-1 py-4 bg-gradient-to-r from-[#2FE081] to-[#25b869] rounded-2xl text-[#03110D] font-black text-[15px] tracking-wide uppercase flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(47,224,129,0.2)] border border-[#50FFAA]/20 transition-all active:scale-[0.98]"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-                  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-                  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-                  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-                  <line x1="7" y1="12" x2="17" y2="12" />
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
-                {t('scanBarcode')}
+                Product Picked
               </button>
             ) : (
               <div className={`flex-1 py-4 border rounded-2xl font-extrabold text-[15px] uppercase flex items-center justify-center gap-1.5 ${currentItem.hasException ? 'bg-[#FF5252]/10 border-[#FF5252]/30 text-[#FF5252]' : 'bg-[#2FE081]/10 border-[#2FE081]/30 text-[#2FE081]'}`}>
@@ -364,8 +357,6 @@ export default function PickingScreen() {
     t 
   } = useStore();
 
-  const [showScanner, setShowScanner] = useState(false);
-  const [showColdBagScanner, setShowColdBagScanner] = useState(false);
   const [showExceptionModal, setShowExceptionModal] = useState(false);
   const [showRoutePreview, setShowRoutePreview] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -432,13 +423,20 @@ export default function PickingScreen() {
 
   // Auto-finish picking when all items are processed
   useEffect(() => {
+    let hasFinished = false;
     if (allPicked) {
       if (!coldBagRequired || coldBagScanned) {
         const timer = setTimeout(() => {
+          hasFinished = true;
           finishPicking();
           navigate('/picking-completed', { replace: true });
         }, 1500);
-        return () => clearTimeout(timer);
+        return () => {
+          clearTimeout(timer);
+          if (!hasFinished) {
+            finishPicking();
+          }
+        };
       }
     }
   }, [allPicked, coldBagRequired, coldBagScanned, finishPicking, navigate]);
@@ -534,7 +532,7 @@ export default function PickingScreen() {
         currentItem={currentItem}
         coldBagRequired={coldBagRequired}
         coldBagScanned={coldBagScanned}
-        setShowColdBagScanner={setShowColdBagScanner}
+        scanColdBag={scanColdBag}
         t={t}
       />
 
@@ -544,18 +542,11 @@ export default function PickingScreen() {
         activeIndex={activeIndex}
         goToItem={goToItem}
         total={total}
-        setShowScanner={setShowScanner}
+        onPick={() => simulateScan(currentItem.barcode, activeIndex)}
         t={t}
       />
 
-      {/* Barcode Scanner Modal overlays */}
       <AnimatePresence>
-        {showScanner && (
-          <BarcodeScanner currentItem={currentItem} onClose={() => setShowScanner(false)} onScan={handleScan} />
-        )}
-        {showColdBagScanner && (
-          <BarcodeScanner currentItem={{ barcode: 'COLD-BAG-001' }} onClose={() => setShowColdBagScanner(false)} onScan={handleColdBagScan} />
-        )}
         
         {showExceptionModal && (
           <motion.div 
@@ -566,7 +557,7 @@ export default function PickingScreen() {
           >
             <motion.div 
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
-              className="bg-[#071A14] border-t border-[rgba(255,255,255,0.05)] rounded-t-[24px] p-6 pb-10"
+              className="bg-[#071A14] border-t border-[rgba(255,255,255,0.05)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full"
             >
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-[18px] font-black text-white uppercase tracking-wide">Report Issue</h3>
@@ -592,7 +583,7 @@ export default function PickingScreen() {
           >
             <motion.div 
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
-              className="bg-[#071A14] border-t border-[rgba(255,255,255,0.05)] rounded-t-[24px] p-6 pb-10 max-h-[85vh] overflow-y-auto"
+              className="bg-[#071A14] border-t border-[rgba(255,255,255,0.05)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full max-h-[85vh] overflow-y-auto scrollbar-none"
             >
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-[18px] font-black text-white uppercase tracking-wide flex items-center gap-2">

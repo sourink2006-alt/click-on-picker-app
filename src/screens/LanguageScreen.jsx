@@ -16,7 +16,7 @@ export default function LanguageScreen() {
   const [selected, setSelected] = useState('en');
 
   return (
-    <div className="onboarding-flow px-6 py-12 flex flex-col">
+    <div className="onboarding-flow px-6 py-safe flex flex-col">
       <div className="onboarding-card p-4 mb-8 flex items-center gap-4">
         <div className="w-10 h-10 rounded-xl bg-[#2FE081] flex items-center justify-center shadow-[0_0_15px_rgba(47,224,129,0.2)]">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#03110D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

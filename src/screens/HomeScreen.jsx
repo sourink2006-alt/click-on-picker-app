@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import useStore, { useHydrated } from '../store/useStore';
 import ScanOrderQRModal from '../components/ScanOrderQRModal';
@@ -11,20 +12,32 @@ export default function HomeScreen() {
   const isOnline = useStore(state => state.isOnline);
   const toggleOnline = useStore(state => state.toggleOnline);
   const acceptOrder = useStore(state => state.acceptOrder);
+  const currentOrder = useStore(state => state.currentOrder);
   const t = useStore(state => state.t);
   const [showQRScanner, setShowQRScanner] = useState(false);
   const hydrated = useHydrated();
+  const navigate = useNavigate();
+
+
+
+  // Navigation Guard - Resume active picking or mapping if exists
+  useEffect(() => {
+    if (currentOrder && (currentOrder.status === 'picking' || currentOrder.status === 'mapping')) {
+      navigate('/picking', { replace: true });
+    }
+  }, [currentOrder, navigate]);
 
   if (!hydrated) {
     return (
       <div className="screen onboarding-flow flex items-center justify-center">
-        <div className="w-8 h-8 border-[3px] border-[#2FE081]/20 border-t-[#2FE081] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-[3px] border-[#2FE081]/25 border-t-[#2FE081] rounded-full animate-spin" />
       </div>
     );
   }
 
   const handleScanSuccess = (orderId) => {
     acceptOrder(orderId);
+    navigate('/picking');
   };
 
   if (!isOnline) {

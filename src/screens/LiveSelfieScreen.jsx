@@ -9,6 +9,9 @@ export default function LiveSelfieScreen() {
   const handleCapture = () => {
     // Simulate capture and login
     login();
+    localStorage.setItem('picker_kyc_version', 'v1');
+    localStorage.setItem('picker_kyc_completed', 'true');
+    localStorage.setItem('picker_kyc_current_step', 'completed');
     navigate('/home');
   };
 
