@@ -7,7 +7,7 @@ import './OnboardingStyles.css';
 
 export default function ProfileScreen() {
   const navigate = useNavigate();
-  const { picker, logout, t, lang, setLanguage } = useStore();
+  const { picker, logout, t, lang, setLanguage, updatePicker, earnings } = useStore();
 
   // State controls for modals & bottom sheets
   const [showLangModal, setShowLangModal] = useState(false);
@@ -16,17 +16,6 @@ export default function ProfileScreen() {
   const [showPayoutSheet, setShowPayoutSheet] = useState(false);
   const [showTaxSheet, setShowTaxSheet] = useState(false);
   const [showHelpSheet, setShowHelpSheet] = useState(false);
-
-  // User Profile editable state
-  const [profileName, setProfileName] = useState(picker.name || 'Rajesh Kumar');
-  const [profileDob, setProfileDob] = useState('1995-08-15');
-  const [profilePan, setProfilePan] = useState('ABCDE1234F');
-  const [profileAddress, setProfileAddress] = useState('12, 4th Block, Koramangala, Bengaluru');
-
-  // Payout editable state
-  const [bankName, setBankName] = useState('HDFC Bank');
-  const [accNumber, setAccNumber] = useState('XXXX XXXX 7842');
-  const [ifsc, setIfsc] = useState('HDFC0001234');
 
   // Temporal storage for editing
   const [tempName, setTempName] = useState('');
@@ -39,32 +28,36 @@ export default function ProfileScreen() {
   const [tempIfsc, setTempIfsc] = useState('');
 
   const handleOpenEditProfile = () => {
-    setTempName(profileName);
-    setTempDob(profileDob);
-    setTempPan(profilePan);
-    setTempAddress(profileAddress);
+    setTempName(picker.name || '');
+    setTempDob(picker.dob || '');
+    setTempPan(picker.pan || '');
+    setTempAddress(picker.address || '');
     setShowEditProfileSheet(true);
   };
 
   const handleSaveProfile = () => {
-    setProfileName(tempName);
-    setProfileDob(tempDob);
-    setProfilePan(tempPan);
-    setProfileAddress(tempAddress);
+    updatePicker({
+      name: tempName,
+      dob: tempDob,
+      pan: tempPan,
+      address: tempAddress,
+    });
     setShowEditProfileSheet(false);
   };
 
   const handleOpenPayout = () => {
-    setTempBankName(bankName);
-    setTempAccNumber(accNumber);
-    setTempIfsc(ifsc);
+    setTempBankName(picker.bankName || '');
+    setTempAccNumber(picker.accNumber || '');
+    setTempIfsc(picker.ifsc || '');
     setShowPayoutSheet(true);
   };
 
   const handleSavePayout = () => {
-    setBankName(tempBankName);
-    setAccNumber(tempAccNumber);
-    setIfsc(tempIfsc);
+    updatePicker({
+      bankName: tempBankName,
+      accNumber: tempAccNumber,
+      ifsc: tempIfsc,
+    });
     setShowPayoutSheet(false);
   };
 
@@ -76,17 +69,17 @@ export default function ProfileScreen() {
   const currentLang = LANGUAGES.find(l => l.code === lang);
 
   return (
-    <div className="screen screen-padded onboarding-flow flex flex-col pb-20 overflow-y-auto scrollbar-none">
+    <div className="screen screen-padded onboarding-flow flex flex-col overflow-y-auto scrollbar-none">
       <div className="px-6 mt-[calc(1.5rem+env(safe-area-inset-top,0px))] flex flex-col gap-6 pb-24 flex-1 max-w-3xl mx-auto w-full">
         
         {/* PROFILE CARD */}
         <div className="onboarding-card p-5 flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-full bg-[#2FE081]/15 border-2 border-[#2FE081] flex items-center justify-center text-[#2FE081] font-black text-xl select-none">
-              {profileName.charAt(0)}
+              {picker.name ? picker.name.charAt(0) : ''}
             </div>
             <div>
-              <h2 className="text-[18px] font-black text-white leading-tight">{profileName}</h2>
+              <h2 className="text-[18px] font-black text-white leading-tight">{picker.name}</h2>
               <p className="text-[12px] text-[rgba(255,255,255,0.45)] mt-1 font-bold">ID: {picker.id || 'COD-5782'}</p>
             </div>
           </div>
@@ -113,15 +106,15 @@ export default function ProfileScreen() {
         <div className="grid grid-cols-3 gap-3">
           <div className="onboarding-card p-4 flex flex-col items-center justify-center text-center">
             <span className="text-[10px] text-[rgba(255,255,255,0.45)] font-bold mb-1">Picking Speed</span>
-            <span className="text-[15px] font-black text-white leading-tight">145 Items/hr</span>
+            <span className="text-[15px] font-black text-white leading-tight">{picker.pickingSpeed || 145} Items/hr</span>
           </div>
           <div className="onboarding-card p-4 flex flex-col items-center justify-center text-center">
             <span className="text-[10px] text-[rgba(255,255,255,0.45)] font-bold mb-1">Total Items</span>
-            <span className="text-[15px] font-black text-white leading-tight">28,470</span>
+            <span className="text-[15px] font-black text-white leading-tight">{(picker.totalItemsPicked || 28470).toLocaleString()}</span>
           </div>
           <div className="onboarding-card p-4 flex flex-col items-center justify-center text-center">
             <span className="text-[10px] text-[rgba(255,255,255,0.45)] font-bold mb-1">Earnings</span>
-            <span className="text-[15px] font-black text-[#2FE081] leading-tight">₹12.4K</span>
+            <span className="text-[15px] font-black text-[#2FE081] leading-tight">₹{((earnings.weekly.total) / 1000).toFixed(1)}K</span>
           </div>
         </div>
 
@@ -131,11 +124,11 @@ export default function ProfileScreen() {
           <div className="onboarding-card p-5 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             {[
               ['Phone', `+91 ${picker.phone}`],
-              ['City', 'Bengaluru'],
+              ['City', picker.city || 'Bengaluru'],
               ['Assigned Hub', picker.warehouse || 'Koramangala Hub'],
               ['Joined Date', picker.joinDate || '2024-08-15'],
-              ['DOB', profileDob],
-              ['PAN ID', profilePan],
+              ['DOB', picker.dob || '1995-08-15'],
+              ['PAN ID', picker.pan || 'ABCDE1234F'],
             ].map(([label, val]) => (
               <div key={label} className="flex justify-between items-center text-[13px] font-semibold border-b border-white/5 pb-2 md:border-none md:pb-0">
                 <span className="text-[rgba(255,255,255,0.45)]">{label}</span>

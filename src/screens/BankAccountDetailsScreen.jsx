@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './OnboardingStyles.css';
+import useStore from '../store/useStore';
 
 const MOCK_BANKS = ['HDFC Bank', 'SBI', 'ICICI Bank', 'Axis Bank', 'Kotak Mahindra Bank'];
 
 export default function BankAccountDetailsScreen() {
   const navigate = useNavigate();
-  const [selectedBank, setSelectedBank] = useState('HDFC Bank');
+  const { picker, updatePicker } = useStore();
+  const [selectedBank, setSelectedBank] = useState(picker.bankName || 'HDFC Bank');
   const [showBankSheet, setShowBankSheet] = useState(false);
   const [accountNumber, setAccountNumber] = useState('');
   const [confirmAccountNumber, setConfirmAccountNumber] = useState('');
-  const [ifscCode, setIfscCode] = useState('');
+  const [ifscCode, setIfscCode] = useState(picker.ifsc || '');
   const [bankLoading, setBankLoading] = useState(false);
 
   // Validation Warnings
@@ -49,6 +51,8 @@ export default function BankAccountDetailsScreen() {
       setBankLoading(true);
       setTimeout(() => {
         setBankLoading(false);
+        const masked = 'XXXX XXXX ' + accountNumber.slice(-4);
+        updatePicker({ bankName: selectedBank, accNumber: masked, ifsc: ifscCode });
         localStorage.setItem('picker_kyc_current_step', 'selfie');
         navigate('/selfie-guide');
       }, 1200);

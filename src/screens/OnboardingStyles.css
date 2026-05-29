@@ -42,6 +42,29 @@
   transition: all 0.2s ease;
 }
 
+input.onboarding-input,
+select.onboarding-input,
+button.onboarding-input,
+div.onboarding-input {
+  height: 56px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  border-radius: 16px !important;
+}
+
+/* Date picker alignment fixes */
+input[type="date"].onboarding-input {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  line-height: normal !important;
+}
+
 .onboarding-input:focus {
   border-color: #2FE081;
   background: rgba(47, 224, 129, 0.05);

@@ -41,7 +41,7 @@ export default function NotificationsScreen() {
   };
 
   return (
-    <div className="screen screen-padded onboarding-flow flex flex-col pb-20">
+    <div className="screen screen-padded onboarding-flow flex flex-col">
       {/* Header */}
       <div className="px-6 pt-6 pb-4 border-b border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0">
         <p className="text-[18px] font-extrabold text-white">{t('alerts')}</p>

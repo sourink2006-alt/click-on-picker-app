@@ -23,37 +23,43 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
   useEffect(() => {
     let html5QrCode = null;
     let mounted = true;
+    let startPromise = null;
 
     const startScanner = async () => {
       try {
         html5QrCode = new Html5Qrcode('qr-reader');
         scannerRef.current = html5QrCode;
 
-        await html5QrCode.start(
+        startPromise = html5QrCode.start(
           { facingMode: 'environment' },
           { fps: 15, qrbox: { width: 220, height: 220 }, aspectRatio: 1.0 },
           (decodedText) => {
             if (mounted) {
-              // Get latest orders without closure dependency
               const latestOrders = useStore.getState().orders;
-              // Try to find order matching the text
               const foundOrder = latestOrders.find(o => o.id === decodedText || decodedText.includes(o.id));
-              if (foundOrder) {
-                onScanSuccessRef.current(foundOrder.id);
-                html5QrCode.stop().catch(() => {});
-                onCloseRef.current();
-              } else {
-                // If it's a generic QR, just try using the text directly as order id
-                onScanSuccessRef.current(decodedText);
-                html5QrCode.stop().catch(() => {});
-                onCloseRef.current();
+              const targetId = foundOrder ? foundOrder.id : decodedText;
+
+              onScanSuccessRef.current(targetId);
+
+              // Stop scanning and cleanup immediately
+              if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop().then(() => {
+                  html5QrCode.clear();
+                }).catch(() => {});
               }
+              onCloseRef.current();
             }
           },
-          () => {} // ignore scan failures
+          () => {}
         );
+
+        await startPromise;
+
         if (!mounted) {
-          html5QrCode.stop().catch(() => {});
+          if (html5QrCode && html5QrCode.isScanning) {
+            await html5QrCode.stop();
+            html5QrCode.clear();
+          }
           return;
         }
         setStatus('scanning');
@@ -70,9 +76,38 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
 
     return () => {
       mounted = false;
-      if (html5QrCode && html5QrCode.isScanning) {
-        html5QrCode.stop().catch(() => {});
-      }
+      const cleanUp = async () => {
+        if (startPromise) {
+          try {
+            await startPromise;
+          } catch (e) {}
+        }
+        if (html5QrCode) {
+          if (html5QrCode.isScanning) {
+            try {
+              await html5QrCode.stop();
+              html5QrCode.clear();
+            } catch (e) {}
+          } else {
+            try {
+              html5QrCode.clear();
+            } catch (e) {}
+          }
+        }
+        // Forcefully release any lingering browser media stream tracks
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const hasVideo = devices.some(d => d.kind === 'videoinput');
+          if (hasVideo) {
+            // Find all active tracks and stop them
+            const streams = await navigator.mediaDevices.getUserMedia({ video: true }).catch(() => null);
+            if (streams) {
+              streams.getTracks().forEach(track => track.stop());
+            }
+          }
+        } catch (e) {}
+      };
+      cleanUp();
     };
   }, []);
 

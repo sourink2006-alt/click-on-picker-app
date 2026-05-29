@@ -56,17 +56,21 @@ export default function FaceScanModal() {
 
   const handleCapture = () => {
     setStatus('verifying');
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
     // Simulate backend face verification
     setTimeout(() => {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => track.stop());
-        streamRef.current = null;
-      }
       setStatus('success');
     }, 1800);
   };
 
   const handleGoOnline = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
     completeFaceScan();
   };
 

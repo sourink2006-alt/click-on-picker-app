@@ -1,8 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import './OnboardingStyles.css';
+import useStore from '../store/useStore';
 
 export default function PersonalDetailsVerifiedScreen() {
   const navigate = useNavigate();
+  const { picker } = useStore();
+  
+  const maskedAadhaar = picker.aadhaar 
+    ? 'XXXX XXXX ' + picker.aadhaar.slice(-4) 
+    : 'XXXX XXXX 7842';
 
   const handleNext = () => {
     localStorage.setItem('picker_kyc_current_step', 'bank');
@@ -53,7 +59,7 @@ export default function PersonalDetailsVerifiedScreen() {
             </div>
             <div className="flex-1">
               <h3 className="text-[14px] font-bold text-white mb-0.5">Aadhaar Linked</h3>
-              <p className="text-[12px] text-white/70 font-mono tracking-widest mt-1">XXXX XXXX 7842</p>
+              <p className="text-[12px] text-white/70 font-mono tracking-widest mt-1">{maskedAadhaar}</p>
               <p className="text-[11px] text-[rgba(255,255,255,0.4)] mt-1.5">Linked to Click On Partner account</p>
             </div>
           </div>

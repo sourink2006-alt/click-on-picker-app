@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './OnboardingStyles.css';
+import useStore from '../store/useStore';
 
 export default function PANVerificationScreen() {
   const navigate = useNavigate();
+  const { picker, updatePicker } = useStore();
   const [panImage, setPanImage] = useState(null);
   const [showPanSheet, setShowPanSheet] = useState(false);
   const [panLoading, setPanLoading] = useState(false);
@@ -20,6 +22,7 @@ export default function PANVerificationScreen() {
     setPanLoading(true);
     setTimeout(() => {
       setPanLoading(false);
+      updatePicker({ pan: picker.pan || 'ABCDE1234F' });
       localStorage.setItem('picker_kyc_current_step', 'bank');
       navigate('/bank-details');
     }, 1200);

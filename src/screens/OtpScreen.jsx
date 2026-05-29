@@ -5,7 +5,8 @@ import './OnboardingStyles.css';
 
 export default function OtpScreen() {
   const navigate = useNavigate();
-  const { phoneNumber } = useStore();
+  const { picker } = useStore();
+  const phoneNumber = picker.phone || '';
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [whatsapp, setWhatsapp] = useState(true);
   const [timer, setTimer] = useState(30);

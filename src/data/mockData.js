@@ -8,6 +8,17 @@ export const PICKER_PROFILE = {
   rating: 4.8,
   totalOrders: 2847,
   language: 'en',
+  dob: '1995-08-15',
+  aadhaar: '123456787842',
+  pan: 'ABCDE1234F',
+  city: 'Bengaluru',
+  address: '12, 4th Block, Koramangala, Bengaluru',
+  bankName: 'HDFC Bank',
+  accNumber: 'XXXX XXXX 7842',
+  ifsc: 'HDFC0001234',
+  profilePhoto: null,
+  pickingSpeed: 145,
+  totalItemsPicked: 28470,
 };
 
 export const DASHBOARD_STATS = {

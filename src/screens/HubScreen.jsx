@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OnboardingStyles.css';
+import useStore from '../store/useStore';
+
 
 export default function HubScreen() {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState('');
+  const { picker, updatePicker } = useStore();
+  const [selected, setSelected] = useState(picker.warehouse ? 'h1' : '');
   const [search, setSearch] = useState('');
 
   return (
@@ -74,7 +77,12 @@ export default function HubScreen() {
         <button 
           className="onboarding-btn" 
           disabled={!selected}
-          onClick={() => navigate('/aadhaar')}
+          onClick={() => {
+            if (selected === 'h1') {
+              updatePicker({ warehouse: 'Dark Store #07 - Koramangala' });
+            }
+            navigate('/aadhaar');
+          }}
         >
           Confirm Hub
         </button>

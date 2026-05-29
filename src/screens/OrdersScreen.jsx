@@ -51,8 +51,8 @@ export default function OrdersScreen() {
   };
 
   return (
-    <div className="screen screen-padded onboarding-flow flex flex-col pb-20">
-      <div className="px-6 mt-6 flex flex-col gap-4 overflow-y-auto flex-1 items-center scrollbar-none w-full max-w-3xl mx-auto">
+    <div className="screen screen-padded onboarding-flow flex flex-col">
+      <div className="px-6 mt-6 flex flex-col gap-4 overflow-y-auto flex-1 items-center scrollbar-none w-full max-w-3xl mx-auto pb-24">
         <OfflineGuard>
           {/* Online View Content */}
           <div className="w-full flex flex-col gap-6 items-center flex-1 py-4 justify-start">

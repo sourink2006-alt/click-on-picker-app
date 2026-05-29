@@ -5,15 +5,17 @@ import './OnboardingStyles.css';
 
 export default function LoginScreen() {
   const navigate = useNavigate();
-  const { phoneNumber, setPhoneNumber } = useStore();
-  const [fullName, setFullName] = useState('');
-  const [dob, setDob] = useState('');
+  const { picker, setPhoneNumber, updatePicker } = useStore();
+  const phoneNumber = picker.phone || '';
+  const [fullName, setFullName] = useState(picker.name === 'Rajesh Kumar' ? '' : picker.name);
+  const [dob, setDob] = useState(picker.dob === '1995-08-15' ? '' : picker.dob);
   const [consent, setConsent] = useState(false);
 
   const isFormValid = fullName.length > 2 && phoneNumber.length === 10 && dob && consent;
 
   const handleContinue = () => {
     if (isFormValid) {
+      updatePicker({ name: fullName, dob });
       navigate('/otp');
     }
   };

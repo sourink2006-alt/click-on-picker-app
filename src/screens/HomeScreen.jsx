@@ -51,7 +51,7 @@ export default function HomeScreen() {
   const pct = Math.round((stats.ordersCompleted / stats.ordersTarget) * 100);
 
   return (
-    <div className="screen screen-padded onboarding-flow flex flex-col pb-20">
+    <div className="screen screen-padded onboarding-flow flex flex-col">
       {/* Main Actions Area */}
       <div className="px-6 mt-6 shrink-0">
         {/* Glow-girdled primary SCAN QR action */}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OnboardingStyles.css';
-
+import useStore from '../store/useStore';
 const CITIES = [
   { id: 'c1', name: 'Bengaluru', active: true, statusText: 'Hiring active' },
   { id: 'c2', name: 'Mumbai', active: false, statusText: 'More cities coming soon' },
@@ -11,7 +11,11 @@ const CITIES = [
 
 export default function CityScreen() {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState('');
+  const { picker, updatePicker } = useStore();
+  
+  // Find initial ID if city name matches
+  const initialCity = CITIES.find(c => c.name === picker.city);
+  const [selected, setSelected] = useState(initialCity ? initialCity.id : '');
   const [search, setSearch] = useState('');
 
   const filteredCities = CITIES.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
@@ -88,7 +92,13 @@ export default function CityScreen() {
         <button 
           className="onboarding-btn" 
           disabled={!selected}
-          onClick={() => navigate('/hub')}
+          onClick={() => {
+            const selectedCity = CITIES.find(c => c.id === selected);
+            if (selectedCity) {
+              updatePicker({ city: selectedCity.name });
+            }
+            navigate('/hub');
+          }}
         >
           Confirm City
         </button>

@@ -7,7 +7,7 @@ export default function HelpScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className="screen screen-padded onboarding-flow flex flex-col pb-20">
+    <div className="screen screen-padded onboarding-flow flex flex-col">
       {/* Header */}
       <div className="px-6 pt-6 pb-4 border-b border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
@@ -25,7 +25,7 @@ export default function HelpScreen() {
       </div>
 
       {/* Content */}
-      <div className="px-6 mt-6 space-y-5 overflow-y-auto flex-1 pb-4">
+      <div className="px-6 mt-6 space-y-5 overflow-y-auto flex-1 pb-24">
         {/* Operational Guide */}
         <div>
           <p className="text-[10px] font-bold text-[#2FE081] uppercase tracking-wider mb-2.5">{t('operationalGuide')}</p>

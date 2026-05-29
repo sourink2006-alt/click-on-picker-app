@@ -17,7 +17,6 @@ const useStore = create(
 
   // --- Auth ---
   isAuthenticated: false,
-  phoneNumber: '',
   otpSent: false,
 
   // --- Picker Verification / Face Scan ---
@@ -68,7 +67,8 @@ const useStore = create(
   toast: null,
 
   // ======== Auth Actions ========
-  setPhoneNumber: (phone) => set({ phoneNumber: phone }),
+  setPhoneNumber: (phone) => set(state => ({ picker: { ...state.picker, phone } })),
+  updatePicker: (updates) => set(state => ({ picker: { ...state.picker, ...updates } })),
   sendOtp: () => {
     const oldIv = get().resendInterval;
     if (oldIv) clearInterval(oldIv);
@@ -104,7 +104,7 @@ const useStore = create(
     set({ 
       isAuthenticated: false, 
       otpSent: false, 
-      phoneNumber: '', 
+      picker: { ...get().picker, phone: '' },
       isOnline: false, 
       resendCooldown: 0, 
       resendInterval: null,

@@ -37,7 +37,7 @@ export default function LiveSelfieScreen() {
         </div>
       </div>
 
-      <div className="absolute bottom-12 w-full flex justify-center z-10">
+      <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom,12px))] w-full flex justify-center z-10">
         <button 
           onClick={handleCapture}
           className="w-20 h-20 rounded-full bg-[rgba(47,224,129,0.2)] border-4 border-[#2FE081] flex items-center justify-center transition-transform active:scale-90"

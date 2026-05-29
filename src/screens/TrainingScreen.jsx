@@ -14,7 +14,7 @@ export default function TrainingScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className="screen screen-padded onboarding-flow flex flex-col pb-20">
+    <div className="screen screen-padded onboarding-flow flex flex-col">
       {/* Header */}
       <div className="px-6 pt-6 pb-4 border-b border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
@@ -32,7 +32,7 @@ export default function TrainingScreen() {
       </div>
 
       {/* Content */}
-      <div className="px-6 mt-6 space-y-3 overflow-y-auto flex-1 pb-4">
+      <div className="px-6 mt-6 space-y-3 overflow-y-auto flex-1 pb-24">
         {VIDEOS.map(v => (
           <button 
             key={v.id} 

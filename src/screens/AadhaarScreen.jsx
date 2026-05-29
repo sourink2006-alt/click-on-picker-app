@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OnboardingStyles.css';
+import useStore from '../store/useStore';
+
 
 export default function AadhaarScreen() {
   const navigate = useNavigate();
-  const [aadhaar, setAadhaar] = useState('');
+  const { picker, updatePicker } = useStore();
+  const [aadhaar, setAadhaar] = useState(picker.aadhaar || '');
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
   const [consent, setConsent] = useState(false);
@@ -117,6 +120,7 @@ export default function AadhaarScreen() {
           className="onboarding-btn" 
           disabled={!isFormValid}
           onClick={() => {
+            updatePicker({ aadhaar });
             localStorage.setItem('picker_kyc_current_step', 'pan');
             navigate('/pan-verification');
           }}
