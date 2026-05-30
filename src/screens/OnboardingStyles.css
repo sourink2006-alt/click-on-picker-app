@@ -7,8 +7,6 @@
               linear-gradient(180deg, #03110D 0%, #071A14 50%, #0B221A 100%);
   background-attachment: fixed;
   color: rgba(255, 255, 255, 0.92);
-  min-height: 100%;
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
