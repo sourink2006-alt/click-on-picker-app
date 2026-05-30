@@ -26,19 +26,39 @@ export default function LiveSelfieScreen() {
 
   useEffect(() => {
     let activeStream = null;
+    let mounted = true;
+    
     const startCamera = async () => {
       try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('Browser unsupported');
+        }
+        
         activeStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-        if (videoRef.current) {
+        
+        if (mounted && videoRef.current) {
           videoRef.current.srcObject = activeStream;
+          setStreamError(null); // Clear any existing errors
         }
       } catch (err) {
-        setStreamError('Camera access denied or unavailable.');
+        if (mounted) {
+          if (err.name === 'NotAllowedError' || err.message.includes('Permission')) {
+            setStreamError('Camera permission denied.');
+          } else if (err.name === 'NotFoundError') {
+            setStreamError('No camera found.');
+          } else if (err.message === 'Browser unsupported') {
+            setStreamError('Camera not supported by browser.');
+          } else {
+            setStreamError('Camera unavailable: ' + (err.message || 'Unknown error'));
+          }
+        }
       }
     };
+    
     startCamera();
 
     return () => {
+      mounted = false;
       if (activeStream) {
         activeStream.getTracks().forEach(track => track.stop());
       }
@@ -110,9 +130,9 @@ export default function LiveSelfieScreen() {
         </svg>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full h-full">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full pointer-events-none">
         {/* Dashed Oval Frame */}
-        <div className="relative w-64 h-80 rounded-[100px] border-4 border-dashed border-[#2FE081] flex items-center justify-center bg-[rgba(255,255,255,0.03)] shadow-[0_0_50px_rgba(47,224,129,0.1)] overflow-hidden">
+        <div className="relative w-64 h-80 rounded-[100px] border-4 border-dashed border-[#2FE081] flex items-center justify-center bg-[rgba(255,255,255,0.03)] shadow-[0_0_50px_rgba(47,224,129,0.1)] overflow-hidden pointer-events-auto">
           {streamError ? (
             <p className="text-red-500 font-bold text-center px-4">{streamError}</p>
           ) : (
