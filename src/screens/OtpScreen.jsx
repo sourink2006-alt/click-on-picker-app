@@ -58,7 +58,7 @@ export default function OtpScreen() {
         </p>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center mb-8">
+      <div className="flex flex-col mt-4">
         <div className="onboarding-card p-6 flex flex-col items-center gap-6">
           <div className="flex gap-2 w-full justify-between">
             {otp.map((digit, i) => (
@@ -101,7 +101,7 @@ export default function OtpScreen() {
         </div>
       </div>
 
-      <div className="shrink-0 pt-4 pb-2">
+      <div className="mt-auto shrink-0 pt-8 pb-4">
         <button 
           className="onboarding-btn" 
           disabled={!isFormValid}

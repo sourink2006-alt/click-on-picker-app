@@ -65,6 +65,20 @@ export default function LiveSelfieScreen() {
     };
   }, []);
 
+  // Ensure stream attaches if videoRef mounts later
+  useEffect(() => {
+    if (videoRef.current && !videoRef.current.srcObject && !streamError) {
+      navigator.mediaDevices?.getUserMedia({ video: { facingMode: 'user' } })
+        .then(stream => {
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          } else {
+            stream.getTracks().forEach(t => t.stop());
+          }
+        }).catch(() => {});
+    }
+  }, [videoRef.current, streamError]);
+
   const handleCapture = () => {
     if (streamError || !videoRef.current) return;
     
@@ -144,7 +158,7 @@ export default function LiveSelfieScreen() {
         </div>
       </div>
 
-      <div className="pb-8 pt-4 z-10 shrink-0 w-full flex justify-center mt-auto" style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom, 12px))' }}>
+      <div className="mt-auto pb-8 pt-4 z-20 shrink-0 w-full flex justify-center" style={{ paddingBottom: 'calc(32px + env(safe-area-inset-bottom, 0px))' }}>
         <button 
           onClick={handleCapture}
           disabled={isCapturing || !!streamError}

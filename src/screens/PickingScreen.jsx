@@ -277,7 +277,7 @@ function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrd
 // ------------------------------------------------------------------
 function BottomActions({ allPicked, currentItem, activeIndex, goToItem, total, onPick, t }) {
   return (
-    <div className="px-6 pt-2 shrink-0 z-20 flex flex-col gap-3" style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom, 24px))' }}>
+    <div className="px-6 pt-2 shrink-0 z-20 flex flex-col gap-3" style={{ paddingBottom: 'calc(32px + env(safe-area-inset-bottom, 0px))' }}>
       <div className="flex gap-3">
         {!allPicked && currentItem && (
           <>
