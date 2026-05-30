@@ -53,6 +53,8 @@
 
 @layer components {
   .app-shell {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
@@ -85,7 +87,8 @@
   }
 
   .screen {
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -94,7 +97,7 @@
   .screen::-webkit-scrollbar { display: none; }
   .scrollbar-none::-webkit-scrollbar { display: none; }
   .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-  .screen-padded { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important; }
+  .screen-padded { padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important; }
 
   .py-safe {
     padding-top: calc(24px + env(safe-area-inset-top, 0px)) !important;
@@ -138,8 +141,7 @@
   }
 
   .bottom-nav {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
+    flex-shrink: 0;
     background: rgba(11, 34, 26, 0.9);
     border-top: 1px solid rgba(80, 255, 170, 0.15);
     backdrop-filter: blur(16px);
