@@ -5,7 +5,7 @@ import './OnboardingStyles.css';
 
 export default function OtpScreen() {
   const navigate = useNavigate();
-  const { picker } = useStore();
+  const { picker, login } = useStore();
   const phoneNumber = picker.phone || '';
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [whatsapp, setWhatsapp] = useState(true);
@@ -36,7 +36,10 @@ export default function OtpScreen() {
   const isFormValid = otp.every(d => d !== '');
 
   const handleVerify = () => {
-    if (isFormValid) navigate('/permissions');
+    if (isFormValid) {
+      login();
+      navigate('/permissions');
+    }
   };
 
   return (
