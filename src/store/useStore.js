@@ -101,6 +101,9 @@ const useStore = create(
     const { resendInterval, pickingTimerInterval } = get();
     if (resendInterval) clearInterval(resendInterval);
     if (pickingTimerInterval) clearInterval(pickingTimerInterval);
+    localStorage.removeItem('picker_kyc_completed');
+    localStorage.removeItem('picker_kyc_version');
+    localStorage.removeItem('picker_kyc_current_step');
     set({ 
       isAuthenticated: false, 
       otpSent: false, 
