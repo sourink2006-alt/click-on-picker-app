@@ -44,7 +44,7 @@ export default function OtpScreen() {
 
   return (
     <div className="onboarding-flow px-6 py-safe flex flex-col">
-      <div className="flex-1">
+      <div className="shrink-0 mb-6">
         <div className="w-12 h-12 rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] flex items-center justify-center mb-6" onClick={() => navigate(-1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -53,10 +53,12 @@ export default function OtpScreen() {
         </div>
         
         <h1 className="onboarding-heading mb-2">Verify Details</h1>
-        <p className="onboarding-subtext mb-10">
+        <p className="onboarding-subtext mb-2">
           Code sent to +91 {phoneNumber || 'XXXXXXXXXX'}
         </p>
+      </div>
 
+      <div className="flex-1 flex flex-col justify-center mb-8">
         <div className="onboarding-card p-6 flex flex-col items-center gap-6">
           <div className="flex gap-2 w-full justify-between">
             {otp.map((digit, i) => (
@@ -99,7 +101,7 @@ export default function OtpScreen() {
         </div>
       </div>
 
-      <div className="pb-8 pt-4">
+      <div className="shrink-0 pt-4 pb-2">
         <button 
           className="onboarding-btn" 
           disabled={!isFormValid}

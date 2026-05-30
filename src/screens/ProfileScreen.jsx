@@ -70,7 +70,7 @@ export default function ProfileScreen() {
 
   return (
     <div className="screen screen-padded onboarding-flow flex flex-col overflow-y-auto scrollbar-none">
-      <div className="px-6 mt-[calc(1.5rem+env(safe-area-inset-top,0px))] flex flex-col gap-6 pb-24 flex-1 max-w-3xl mx-auto w-full">
+      <div className="px-6 safe-pt flex flex-col gap-6 pb-6 flex-1 max-w-3xl mx-auto w-full">
         
         {/* PROFILE CARD */}
         <div className="onboarding-card p-5 flex items-center justify-between gap-4">
