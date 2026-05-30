@@ -340,12 +340,16 @@ const useStore = create(
   },
     }),
     {
-      name: 'picker-store-v4', // bump version to clear potentially corrupted state
+      name: 'picker-store-v5', // bump version to clear potentially corrupted state
       partialize: (state) => ({
         isOnline: state.isOnline,
         isAuthenticated: state.isAuthenticated,
         continuousScanMode: state.continuousScanMode,
         isVerified: state.isVerified,
+        currentOrder: state.currentOrder,
+        pickingTimer: state.pickingTimer,
+        pickingLocked: state.pickingLocked,
+        coldBagScanned: state.coldBagScanned,
       }),
     }
   )

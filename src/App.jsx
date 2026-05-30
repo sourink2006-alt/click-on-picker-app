@@ -29,6 +29,32 @@ import TrainingScreen from './screens/TrainingScreen';
 import GlobalHeader from './components/GlobalHeader';
 import ErrorBoundary from './components/ErrorBoundary';
 
+const PublicRoute = ({ children }) => {
+  const isAuthenticated = useStore(state => state.isAuthenticated);
+  const isKycCompleted = localStorage.getItem('picker_kyc_completed') === 'true';
+  if (isAuthenticated) return <Navigate to={isKycCompleted ? "/home" : "/permissions"} replace />;
+  return children;
+};
+
+const KycRoute = ({ children }) => {
+  const isAuthenticated = useStore(state => state.isAuthenticated);
+  const isKycCompleted = localStorage.getItem('picker_kyc_completed') === 'true';
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (isKycCompleted) return <Navigate to="/home" replace />;
+  return children;
+};
+
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = useStore(state => state.isAuthenticated);
+  const isKycCompleted = localStorage.getItem('picker_kyc_completed') === 'true';
+  const pickingLocked = useStore(state => state.pickingLocked);
+  
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (!isKycCompleted) return <Navigate to="/permissions" replace />;
+  
+  return children;
+};
+
 function AppRoutes() {
   const location = useLocation();
   const isAuthenticated = useStore(state => state.isAuthenticated);
@@ -46,32 +72,38 @@ function AppRoutes() {
       {showHeader && <GlobalHeader />}
       
       <Routes location={location}>
-        {/* Unauthenticated routes: Redirect authenticated users to /home */}
-        <Route path="/" element={isAuthenticated ? <Navigate to="/home" replace /> : <SplashScreen />} />
-        <Route path="/language" element={isAuthenticated ? <Navigate to="/home" replace /> : <LanguageScreen />} />
-        <Route path="/login" element={isAuthenticated ? <Navigate to="/home" replace /> : <LoginScreen />} />
-        <Route path="/otp" element={isAuthenticated ? <Navigate to="/home" replace /> : <OtpScreen />} />
-        <Route path="/permissions" element={isAuthenticated ? <Navigate to="/home" replace /> : <PermissionsScreen />} />
-        <Route path="/city" element={isAuthenticated ? <Navigate to="/home" replace /> : <CityScreen />} />
-        <Route path="/hub" element={isAuthenticated ? <Navigate to="/home" replace /> : <HubScreen />} />
-        <Route path="/aadhaar" element={isAuthenticated ? <Navigate to="/home" replace /> : <AadhaarScreen />} />
-        <Route path="/pan-verification" element={isAuthenticated ? <Navigate to="/home" replace /> : <PANVerificationScreen />} />
-        <Route path="/personal-details-verified" element={isAuthenticated ? <Navigate to="/home" replace /> : <PersonalDetailsVerifiedScreen />} />
-        <Route path="/bank-details" element={isAuthenticated ? <Navigate to="/home" replace /> : <BankAccountDetailsScreen />} />
-        <Route path="/bank-submitted" element={isAuthenticated ? <Navigate to="/home" replace /> : <BankVerificationSubmittedScreen />} />
-        <Route path="/selfie-guide" element={isAuthenticated ? <Navigate to="/home" replace /> : <SelfieGuideScreen />} />
-        <Route path="/live-selfie" element={isAuthenticated ? <Navigate to="/home" replace /> : <LiveSelfieScreen />} />
+        {/* Public Routes (Unauthenticated only) */}
+        <Route path="/" element={<PublicRoute><SplashScreen /></PublicRoute>} />
+        <Route path="/language" element={<PublicRoute><LanguageScreen /></PublicRoute>} />
+        <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
+        <Route path="/otp" element={<PublicRoute><OtpScreen /></PublicRoute>} />
 
-        {/* Authenticated routes: Redirect unauthenticated users to /login */}
-        <Route path="/home" element={isAuthenticated ? <HomeScreen /> : <Navigate to="/login" replace />} />
-        <Route path="/orders" element={isAuthenticated ? <OrdersScreen /> : <Navigate to="/login" replace />} />
-        <Route path="/picking" element={isAuthenticated ? <PickingScreen /> : <Navigate to="/login" replace />} />
-        <Route path="/picking-completed" element={isAuthenticated ? <PickingCompletedScreen /> : <Navigate to="/login" replace />} />
-        <Route path="/earnings" element={isAuthenticated ? (pickingLocked ? <Navigate to="/orders" replace /> : <EarningsScreen />) : <Navigate to="/login" replace />} />
-        <Route path="/notifications" element={isAuthenticated ? (pickingLocked ? <Navigate to="/orders" replace /> : <NotificationsScreen />) : <Navigate to="/login" replace />} />
-        <Route path="/profile" element={isAuthenticated ? (pickingLocked ? <Navigate to="/orders" replace /> : <ProfileScreen />) : <Navigate to="/login" replace />} />
-        <Route path="/help" element={isAuthenticated ? <HelpScreen /> : <Navigate to="/login" replace />} />
-        <Route path="/training" element={isAuthenticated ? <TrainingScreen /> : <Navigate to="/login" replace />} />
+        {/* KYC Routes (Authenticated but KYC Pending) */}
+        <Route path="/permissions" element={<KycRoute><PermissionsScreen /></KycRoute>} />
+        <Route path="/city" element={<KycRoute><CityScreen /></KycRoute>} />
+        <Route path="/hub" element={<KycRoute><HubScreen /></KycRoute>} />
+        <Route path="/aadhaar" element={<KycRoute><AadhaarScreen /></KycRoute>} />
+        <Route path="/pan-verification" element={<KycRoute><PANVerificationScreen /></KycRoute>} />
+        <Route path="/personal-details-verified" element={<KycRoute><PersonalDetailsVerifiedScreen /></KycRoute>} />
+        <Route path="/bank-details" element={<KycRoute><BankAccountDetailsScreen /></KycRoute>} />
+        <Route path="/bank-submitted" element={<KycRoute><BankVerificationSubmittedScreen /></KycRoute>} />
+        <Route path="/selfie-guide" element={<KycRoute><SelfieGuideScreen /></KycRoute>} />
+        <Route path="/live-selfie" element={<KycRoute><LiveSelfieScreen /></KycRoute>} />
+
+        {/* Protected Dashboard Routes (Authenticated + KYC Complete) */}
+        <Route path="/home" element={<ProtectedRoute><HomeScreen /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><OrdersScreen /></ProtectedRoute>} />
+        <Route path="/picking" element={<ProtectedRoute><PickingScreen /></ProtectedRoute>} />
+        <Route path="/picking-completed" element={<ProtectedRoute><PickingCompletedScreen /></ProtectedRoute>} />
+        
+        {/* Lock access to generic routes if currently picking */}
+        <Route path="/earnings" element={<ProtectedRoute>{pickingLocked ? <Navigate to="/orders" replace /> : <EarningsScreen />}</ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute>{pickingLocked ? <Navigate to="/orders" replace /> : <NotificationsScreen />}</ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute>{pickingLocked ? <Navigate to="/orders" replace /> : <ProfileScreen />}</ProtectedRoute>} />
+        
+        <Route path="/help" element={<ProtectedRoute><HelpScreen /></ProtectedRoute>} />
+        <Route path="/training" element={<ProtectedRoute><TrainingScreen /></ProtectedRoute>} />
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

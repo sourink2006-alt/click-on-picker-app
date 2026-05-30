@@ -94,11 +94,11 @@
   .screen::-webkit-scrollbar { display: none; }
   .scrollbar-none::-webkit-scrollbar { display: none; }
   .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-  .screen-padded { padding-bottom: calc(80px + env(safe-area-inset-bottom, 12px)) !important; }
+  .screen-padded { padding-bottom: calc(90px + env(safe-area-inset-bottom, 12px)) !important; }
 
   .py-safe {
-    padding-top: calc(2.5rem + env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 12px)) !important;
+    padding-top: calc(1.5rem + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 12px)) !important;
   }
 
   .safe-pt {
@@ -147,7 +147,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: calc(64px + env(safe-area-inset-bottom, 12px));
+    min-height: calc(64px + env(safe-area-inset-bottom, 12px));
     padding-bottom: env(safe-area-inset-bottom, 12px);
     z-index: 100;
     transition: all 0.2s ease;

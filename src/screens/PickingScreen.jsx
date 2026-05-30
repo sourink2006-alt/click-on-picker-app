@@ -65,7 +65,7 @@ function ProgressSection({ pickedCount, total, progress, timerCritical, timerUrg
         <div className="bg-[#0b221a]/30 px-5 py-2 border-b border-[rgba(255,255,255,0.04)] flex items-center gap-2 overflow-x-auto scrollbar-none">
           <span className="text-[9px] text-[rgba(255,255,255,0.4)] font-extrabold uppercase tracking-widest shrink-0">{t('route')}</span>
           <div className="flex items-center gap-1">
-            {remainingRacks.map((r, idx) => (
+            {(remainingRacks || []).map((r, idx) => (
               <span key={r} className="flex items-center gap-1 shrink-0">
                 <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
                   r === currentItem?.rack 
@@ -81,7 +81,7 @@ function ProgressSection({ pickedCount, total, progress, timerCritical, timerUrg
 
       {/* Carousel Dots */}
       <div className="px-5 py-3 border-b border-[rgba(255,255,255,0.04)] flex items-center justify-center gap-2">
-        {items.map((item, idx) => (
+        {(items || []).map((item, idx) => (
           <button 
             key={item.orderItemId} 
             onClick={() => goToItem(idx)} 
@@ -123,10 +123,10 @@ function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrd
   };
 
   return (
-    <div className="flex-1 relative flex items-center justify-center px-6 my-4" style={{ touchAction: "pan-y" }}>
+    <div className="flex-1 relative flex items-center justify-center px-6 my-4 min-h-0" style={{ touchAction: "pan-y" }}>
       {!allPicked && currentItem ? (
-        <div className="w-full max-w-[340px] h-[380px] relative flex items-center justify-center" style={{ touchAction: "pan-x" }}>
-          {items.map((item, idx) => {
+        <div className="w-full max-w-[340px] h-full max-h-[400px] min-h-[280px] relative flex items-center justify-center shrink-0" style={{ touchAction: "pan-x" }}>
+          {(items || []).map((item, idx) => {
             const offset = idx - activeIndex;
             const isVisible = Math.abs(offset) <= 2;
             if (!isVisible) return null;
@@ -163,7 +163,7 @@ function ProductCarousel({ items, activeIndex, setActiveIndex, total, currentOrd
                 </div>
 
                 {/* Card Content Area - No scrollbars, fits everything sequentially */}
-                <div className="flex-1 flex flex-col items-center justify-center py-2 gap-2 w-full">
+                <div className="flex-1 flex flex-col items-center justify-center py-2 gap-2 w-full min-h-0 overflow-y-auto scrollbar-none">
                   {/* CENTER: Product Image */}
                   <div className="w-28 h-28 bg-white/5 rounded-2xl p-2 shrink-0 border border-white/5 relative flex items-center justify-center">
                     {item.image ? (
@@ -383,7 +383,7 @@ export default function PickingScreen() {
   const timerLimitMM = Math.floor(orderTimerLimit / 60).toString().padStart(2, '0');
   const timerLimitSS = (orderTimerLimit % 60).toString().padStart(2, '0');
 
-  const remainingRacks = [...new Set(items.filter(i => !i.picked).map(i => i.rack))].sort();
+  const remainingRacks = [...new Set((items || []).filter(i => !i?.picked).map(i => i?.rack))].sort();
   const currentItem = items[activeIndex];
 
   const handleException = (reason) => {
@@ -613,7 +613,7 @@ export default function PickingScreen() {
                       )}
                     </div>
                     <div className="flex flex-col gap-3">
-                      {rackItems.map(i => (
+                      {(rackItems || []).map(i => (
                         <div key={i.orderItemId} className="flex justify-between items-center">
                           <span className={`text-[13px] font-semibold tracking-wide ${i.picked || i.hasException ? 'text-white/30 line-through' : 'text-white/90'}`}>{i.name}</span>
                           <span className={`text-[11px] font-black font-mono px-2 py-0.5 rounded ${i.picked || i.hasException ? 'text-white/30 bg-white/5' : 'text-white/70 bg-white/10'}`}>{i.shelf}</span>

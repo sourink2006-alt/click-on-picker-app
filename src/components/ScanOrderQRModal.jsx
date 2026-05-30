@@ -8,8 +8,9 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
   const scannerRef = useRef(null);
   const [status, setStatus] = useState('initializing'); // initializing | scanning | error
   const [fallback, setFallback] = useState(false);
+  const [cameraError, setCameraError] = useState(null);
 
-  const pendingOrders = orders.filter(o => o.status === 'pending');
+  const pendingOrders = orders ? orders.filter(o => o?.status === 'pending') : [];
 
   // Stabilize callbacks to prevent scanner restarting on every parent render
   const onScanSuccessRef = useRef(onScanSuccess);
@@ -68,6 +69,13 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
         if (mounted) {
           setStatus('error');
           setFallback(true);
+          if (err?.name === 'NotAllowedError' || err?.message?.includes('Permission')) {
+            setCameraError('Camera permission denied. Please enable it in your browser settings.');
+          } else if (err?.name === 'NotFoundError') {
+            setCameraError('No camera device found on this device.');
+          } else {
+            setCameraError('Failed to access camera: ' + (err?.message || 'Unknown error'));
+          }
         }
       }
     };
@@ -169,6 +177,17 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
               <span className="text-[12px] text-[rgba(255,255,255,0.4)]">Accessing Camera...</span>
             </div>
           )}
+          
+          {status === 'error' && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#071A14]/90 gap-3 p-6 text-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span className="text-[13px] font-bold text-red-500">{cameraError || 'Camera unavailable'}</span>
+            </div>
+          )}
         </div>
 
         <p className="text-[13px] text-[rgba(255,255,255,0.5)] text-center mt-6 max-w-[280px]">
@@ -193,14 +212,14 @@ export default function ScanOrderQRModal({ onClose, onScanSuccess }) {
               Select an order to simulate a QR scan:
             </p>
             <div className="grid grid-cols-2 gap-2">
-              {pendingOrders.map(order => (
+              {(pendingOrders || []).map(order => (
                 <button
-                  key={order.id}
-                  onClick={() => handleSimulateScan(order.id)}
+                  key={order?.id}
+                  onClick={() => handleSimulateScan(order?.id)}
                   className="py-3 px-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-left transition-all hover:border-[#2FE081]/30 active:scale-[0.97]"
                 >
-                  <p className="text-[14px] font-extrabold text-white">{order.id}</p>
-                  <p className="text-[11px] text-[rgba(255,255,255,0.4)] mt-0.5">{order.items.length} items · {order.customerArea ? order.customerArea.split(',')[0] : 'No Area'}</p>
+                  <p className="text-[14px] font-extrabold text-white">{order?.id}</p>
+                  <p className="text-[11px] text-[rgba(255,255,255,0.4)] mt-0.5">{order?.items?.length || 0} items · {typeof order?.customerArea === 'string' ? order.customerArea.split(',')[0] : 'No Area'}</p>
                 </button>
               ))}
             </div>

@@ -95,7 +95,7 @@ export default function FaceScanModal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="absolute inset-0 z-[200] bg-[#03110D] onboarding-flow flex flex-col justify-between px-6 py-10"
+      className="absolute inset-0 z-[200] bg-[#03110D] onboarding-flow flex flex-col justify-between px-6 py-safe"
     >
       {/* Top Header */}
       <div className="flex items-center justify-between w-full shrink-0">
@@ -113,7 +113,7 @@ export default function FaceScanModal() {
       </div>
 
       {/* Main card viewport */}
-      <div className="flex-1 flex flex-col items-center justify-center w-full my-4">
+      <div className="flex-1 flex flex-col items-center justify-center w-full my-4 min-h-0 overflow-y-auto scrollbar-none py-2">
         <AnimatePresence mode="wait">
           {status === 'guidance' && (
             <motion.div
@@ -121,7 +121,7 @@ export default function FaceScanModal() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="onboarding-card p-6 flex flex-col items-center text-center w-full max-w-[320px]"
+              className="onboarding-card p-6 flex flex-col items-center text-center w-full max-w-[320px] shrink-0"
             >
               <div className="w-14 h-14 rounded-full bg-[#2FE081]/15 border border-[#2FE081]/25 flex items-center justify-center mb-4">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2FE081" strokeWidth="2">
@@ -189,7 +189,7 @@ export default function FaceScanModal() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="onboarding-card p-6 flex flex-col items-center justify-center w-full max-w-[320px] aspect-square relative"
+              className="onboarding-card p-6 flex flex-col items-center justify-center w-full max-w-[320px] aspect-square relative shrink-0"
             >
               <div className="relative w-52 h-52">
                 {/* Circular frame */}

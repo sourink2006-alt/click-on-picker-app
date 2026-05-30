@@ -249,7 +249,7 @@ export default function ProfileScreen() {
               animate={{ y: 0 }} 
               exit={{ y: '100%' }} 
               transition={{ type: 'spring', damping: 25, stiffness: 220 }} 
-              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full"
+              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-safe max-w-[430px] mx-auto w-full flex flex-col max-h-[85vh] overflow-y-auto scrollbar-none"
             >
               <div className="flex items-center justify-between mb-6">
                 <p className="text-[16px] font-extrabold text-white uppercase tracking-wider">{t('language')}</p>
@@ -307,7 +307,7 @@ export default function ProfileScreen() {
               animate={{ y: 0 }} 
               exit={{ y: '100%' }} 
               transition={{ type: 'spring', damping: 25, stiffness: 220 }} 
-              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full max-h-[90vh] overflow-y-auto scrollbar-none"
+              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-safe max-w-[430px] mx-auto w-full flex flex-col max-h-[85vh] overflow-y-auto scrollbar-none"
             >
               <div className="flex items-center justify-between mb-6">
                 <p className="text-[16px] font-extrabold text-white uppercase tracking-wider">Edit Profile</p>
@@ -407,7 +407,7 @@ export default function ProfileScreen() {
               animate={{ y: 0 }} 
               exit={{ y: '100%' }} 
               transition={{ type: 'spring', damping: 25, stiffness: 220 }} 
-              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full"
+              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-safe max-w-[430px] mx-auto w-full flex flex-col max-h-[85vh] overflow-y-auto scrollbar-none"
             >
               <div className="flex items-center justify-between mb-6">
                 <p className="text-[16px] font-extrabold text-white uppercase tracking-wider">Payout Bank Account</p>
@@ -487,7 +487,7 @@ export default function ProfileScreen() {
               animate={{ y: 0 }} 
               exit={{ y: '100%' }} 
               transition={{ type: 'spring', damping: 25, stiffness: 220 }} 
-              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full"
+              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-safe max-w-[430px] mx-auto w-full flex flex-col max-h-[85vh] overflow-y-auto scrollbar-none"
             >
               <div className="flex items-center justify-between mb-6">
                 <p className="text-[16px] font-extrabold text-white uppercase tracking-wider">Tax Documents</p>
@@ -549,7 +549,7 @@ export default function ProfileScreen() {
               animate={{ y: 0 }} 
               exit={{ y: '100%' }} 
               transition={{ type: 'spring', damping: 25, stiffness: 220 }} 
-              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-10 max-w-[430px] mx-auto w-full"
+              className="bg-[#071A14] border-t border-[rgba(80,255,170,0.15)] rounded-t-[24px] p-6 pb-safe max-w-[430px] mx-auto w-full flex flex-col max-h-[85vh] overflow-y-auto scrollbar-none"
             >
               <div className="flex items-center justify-between mb-6">
                 <p className="text-[16px] font-extrabold text-white uppercase tracking-wider">Help & Support</p>

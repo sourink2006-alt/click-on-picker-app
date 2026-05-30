@@ -88,20 +88,21 @@ export default function OrdersScreen() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3.5">
-                  {completedOrders.map(order => (
-                    <div key={order.id} className="onboarding-card p-4 flex flex-col gap-3 border border-white/5 bg-[#071A14]/20">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <p className="text-[15px] font-black text-white leading-tight">{order.id}</p>
-                          <p className="text-[11px] text-[rgba(255,255,255,0.4)] mt-1">
-                            {order.customerArea ? order.customerArea.split(',')[0] : 'Koramangala'}
-                          </p>
+                  {(completedOrders || []).map(order => (
+                  <div key={order?.id} className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <p className="text-[14px] font-extrabold text-white mb-1">{order?.id}</p>
+                        <p className="text-[12px] text-[rgba(255,255,255,0.4)]">
+                          {order?.items?.length || 0} items · 
+                          {typeof order?.customerArea === 'string' ? order.customerArea.split(',')[0] : 'Koramangala'}
+                        </p>
                         </div>
                         <div className="flex flex-col items-end gap-1.5">
                           <span className="text-[9px] font-bold text-[#2FE081] bg-[#2FE081]/15 px-2 py-0.5 rounded border border-[#2FE081]/30 uppercase tracking-wide">
                             Completed
                           </span>
-                          {order.accuracy !== undefined && (
+                          {order?.accuracy !== undefined && (
                             <span className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded border uppercase tracking-wider ${
                               order.accuracy >= 95 
                                 ? 'text-[#2FE081] bg-[#2FE081]/5 border-[#2FE081]/25' 
